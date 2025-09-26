@@ -1,26 +1,25 @@
-# Use the official Node.js 18 Alpine image as the base
-FROM node:18-alpine
+# Stage 1 - Build
+FROM node:18-alpine AS build
 
-# Install build dependencies for native modules
-RUN apk add --no-cache python3 make g++
-
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
+# install dependency
 COPY package*.json ./
+RUN npm install
 
-# Install dependencies
-RUN npm ci
-
-# Copy the rest of the application code
 COPY . .
 
-# Build the Strapi application
+# build
 RUN npm run build
 
-# Expose the port the app runs on
+# Stage 2 - Run
+FROM node:18-alpine
+
+WORKDIR /app
+
+# copy build and node_modules
+COPY --from=build /app ./
+
 EXPOSE 1337
 
-# Start the application
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
