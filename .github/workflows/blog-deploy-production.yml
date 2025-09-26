@@ -8,6 +8,8 @@ on:
     paths:
       - 'blog/**'
       - '.github/workflows/blog-deploy-production.yml'
+      - 'docker-compose.yml'
+      - 'README.md'
 jobs:
   blog-production:
     runs-on: ubuntu-latest
