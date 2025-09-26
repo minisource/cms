@@ -1,16 +1,6 @@
 version: '3.9'
 
 services:
-  # BLOG
-  blog:
-    image: IMAGE_FULL
-    ports:
-      - "${PORT}:${PORT}"
-    env_file:
-      - .env
-    depends_on:
-      - strapi
-
   # STRAPI
   strapi:
     image: CMS_IMAGE_FULL

@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  # BLOG
+  blog:
+    image: IMAGE_FULL
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env

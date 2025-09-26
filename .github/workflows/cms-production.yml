@@ -1,21 +1,17 @@
-name: Deploy Production Blog
+name: Deploy Production CMS
 
 on:
-  workflow_run:
-    workflows: ["Deploy CMS"]
-    types:
-      - completed
   push:
     branches:
       - main
       - master
+      - dev
     paths:
-      - 'blog/**'
-      - '.github/workflows/blog-deploy-production.yml'
+      - 'cms/**'
+      - '.github/workflows/cms-deploy.yml'
       - 'docker-compose.yml'
 jobs:
-  blog-production:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  cms:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -24,7 +20,7 @@ jobs:
       - name: Set variables
         run: |
           TAG=$(date +%Y%m%d%H%M)-$(git rev-parse --short HEAD)
-          REPO_NAME="blog"
+          REPO_NAME="cms"
           IMAGE_NAME="$REPO_NAME/$REPO_NAME"
           echo "TAG=$TAG" >> $GITHUB_ENV
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
@@ -34,12 +30,13 @@ jobs:
         with:
           dokploy_domain: ${{ secrets.DOKPLOY_DOMAIN }}
           api_key: ${{ secrets.DOKPLOY_API_KEY }}
-          compose_id: ${{ secrets.DOKPLOY_COMPOSE_ID }}
+          compose_id: ${{ secrets.DOKPLOY_COMPOSE_ID_CMS }}
           registry_domain: ${{ secrets.REGISTRY_DOMAIN }}
           registry_username: ${{ secrets.REGISTRY_USERNAME }}
           registry_token: ${{ secrets.REGISTRY_PASSWORD }}
           image_name: ${{ env.IMAGE_NAME }}
           tag: ${{ env.TAG }}
-          do_clean: "true"
-          dockerfile_path: blog/Dockerfile
-          context_path: blog
+          dockerfile_path: cms/Dockerfile
+          compose_path: docker-compose.cms.yml
+          context_path: cms
+          image_placeholder: "CMS_IMAGE_FULL"

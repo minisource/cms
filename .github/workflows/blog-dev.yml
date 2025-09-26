@@ -33,7 +33,7 @@ jobs:
         with:
           dokploy_domain: ${{ secrets.DOKPLOY_DOMAIN }}
           api_key: ${{ secrets.DOKPLOY_API_KEY }}
-          compose_id: ${{ secrets.DOKPLOY_COMPOSE_ID_DEV }}
+          compose_id: ${{ secrets.DOKPLOY_COMPOSE_ID_BLOG_DEV }}
           registry_domain: ${{ secrets.REGISTRY_DOMAIN }}
           registry_username: ${{ secrets.REGISTRY_USERNAME }}
           registry_token: ${{ secrets.REGISTRY_PASSWORD }}
@@ -42,4 +42,5 @@ jobs:
           do_clean: "true"
           debug: "true"
           dockerfile_path: blog/Dockerfile
+          compose_path: docker-compose.blog.yml
           context_path: blog
