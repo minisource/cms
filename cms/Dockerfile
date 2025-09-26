@@ -14,12 +14,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/config ./config
-COPY --from=build /app/public ./public
+COPY --from=build /app ./
 
 EXPOSE 1337
-
 CMD ["npm", "run", "start"]
