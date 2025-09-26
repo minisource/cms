@@ -16,6 +16,9 @@ services:
       - "${STRAPI_PORT}:1337"
     volumes:
       - ./cms:/app
+      - /root/cms/package.json:/package.json
+    env_file:
+      - .env
     working_dir: /app
     command: npm run start
     depends_on:
