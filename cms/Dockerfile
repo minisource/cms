@@ -13,8 +13,9 @@ RUN npm run build
 FROM node:22-alpine
 RUN apk add --no-cache vips-dev
 WORKDIR /opt/app
+
 COPY --from=build /opt/app ./
-COPY --from=build /opt/node_modules /opt/node_modules
-ENV PATH=/opt/node_modules/.bin:$PATH
+
+ENV PATH=/opt/app/node_modules/.bin:$PATH
 EXPOSE 1337
 CMD ["npm", "run", "start"]
