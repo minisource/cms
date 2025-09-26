@@ -1,6 +1,10 @@
-name: Build and Push Production Blog to Registry
+name: Deploy Production Blog
 
 on:
+  workflow_run:
+    workflows: ["Deploy CMS"]
+    types:
+      - completed
   push:
     branches:
       - main

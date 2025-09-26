@@ -1,6 +1,9 @@
 # Use the official Node.js 18 Alpine image as the base
 FROM node:18-alpine
 
+# Install build dependencies for native modules
+RUN apk add --no-cache python3 make g++
+
 # Set the working directory inside the container
 WORKDIR /app
 
