@@ -9,7 +9,7 @@ on:
     paths:
       - 'cms/**'
       - '.github/workflows/cms-deploy.yml'
-      - 'docker-compose.yml'
+      - 'docker-compose.cms.yml'
 jobs:
   cms:
     runs-on: ubuntu-latest

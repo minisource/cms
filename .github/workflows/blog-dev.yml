@@ -11,7 +11,7 @@ on:
     paths:
       - 'blog/**'
       - '.github/workflows/blog-deploy-dev.yml'
-      - 'docker-compose.yml'
+      - 'docker-compose.blog.yml'
 jobs:
   blog-dev:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
