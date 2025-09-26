@@ -3,8 +3,6 @@ name: Deploy Dev CMS
 on:
   push:
     branches:
-      - main
-      - master
       - dev
     paths:
       - 'cms/**'
