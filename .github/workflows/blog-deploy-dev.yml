@@ -1,0 +1,39 @@
+name: Build and Push dev to Registry
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'blog/**'
+      - '.github/workflows/blog-deploy-dev.yml'
+jobs:
+  blog-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set variables
+        run: |
+          TAG=$(date +%Y%m%d%H%M)-$(git rev-parse --short HEAD)
+          REPO_NAME="blog-dev"
+          IMAGE_NAME="$REPO_NAME/$REPO_NAME"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+
+      - name: Dokploy Compose Deploy
+        uses: minisource/dokploy-action@v1
+        with:
+          dokploy_domain: ${{ secrets.DOKPLOY_DOMAIN }}
+          api_key: ${{ secrets.DOKPLOY_API_KEY }}
+          compose_id: ${{ secrets.DOKPLOY_COMPOSE_ID_DEV }}
+          registry_domain: ${{ secrets.REGISTRY_DOMAIN }}
+          registry_username: ${{ secrets.REGISTRY_USERNAME }}
+          registry_token: ${{ secrets.REGISTRY_PASSWORD }}
+          image_name: ${{ env.IMAGE_NAME }}
+          tag: ${{ env.TAG }}
+          do_clean: "true"
+          debug: "true"
+          dockerfile_path: blog/Dockerfile
+          context_path: blog
