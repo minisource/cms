@@ -3,13 +3,10 @@ FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# install dependency
 COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-# build
 RUN npm run build
 
 # Stage 2 - Run
@@ -17,8 +14,11 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# copy build and node_modules
-COPY --from=build /app ./
+COPY --from=build /app/package*.json ./
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/build ./build
+COPY --from=build /app/config ./config
+COPY --from=build /app/public ./public
 
 EXPOSE 1337
 
