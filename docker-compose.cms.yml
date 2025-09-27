@@ -15,7 +15,7 @@ services:
     ports:
       - "${STRAPI_PORT}:1337"
     volumes:
-      - /root/cms/package.json:/package.json
+      - /root/cms/package.json:/app/package.json
     working_dir: /app
     command: npm run start
     depends_on:
