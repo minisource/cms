@@ -1,22 +1,34 @@
 import path from 'path';
 
 export default ({ env }) => {
-  const client = env('DATABASE_CLIENT') || 'postgres';
+  const defaultConfig = {
+    STRAPI_PORT: 3004,
+    NODE_ENV: 'production',
+    DATABASE_CLIENT: 'postgres',
+    DATABASE_HOST: 'db',
+    DATABASE_PORT: 5432,
+    DATABASE_NAME: 'strapi',
+    DATABASE_USERNAME: 'strapi',
+    DATABASE_PASSWORD: 'strapi',
+    DATABASE_SSL: false,
+  };
+
+  const client = env('DATABASE_CLIENT', defaultConfig.DATABASE_CLIENT);
 
   const connections = {
     mysql: {
       connection: {
-        host: env('DATABASE_HOST', 'localhost'),
+        host: env('DATABASE_HOST', defaultConfig.DATABASE_HOST),
         port: env.int('DATABASE_PORT', 3306),
-        database: env('DATABASE_NAME', 'strapi'),
-        user: env('DATABASE_USERNAME', 'strapi'),
-        password: env('DATABASE_PASSWORD', 'strapi'),
-        ssl: env.bool('DATABASE_SSL', false) && {
-          key: env('DATABASE_SSL_KEY', undefined),
-          cert: env('DATABASE_SSL_CERT', undefined),
-          ca: env('DATABASE_SSL_CA', undefined),
-          capath: env('DATABASE_SSL_CAPATH', undefined),
-          cipher: env('DATABASE_SSL_CIPHER', undefined),
+        database: env('DATABASE_NAME', defaultConfig.DATABASE_NAME),
+        user: env('DATABASE_USERNAME', defaultConfig.DATABASE_USERNAME),
+        password: env('DATABASE_PASSWORD', defaultConfig.DATABASE_PASSWORD),
+        ssl: env.bool('DATABASE_SSL', defaultConfig.DATABASE_SSL) && {
+          key: env('DATABASE_SSL_KEY'),
+          cert: env('DATABASE_SSL_CERT'),
+          ca: env('DATABASE_SSL_CA'),
+          capath: env('DATABASE_SSL_CAPATH'),
+          cipher: env('DATABASE_SSL_CIPHER'),
           rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
         },
       },
@@ -25,17 +37,17 @@ export default ({ env }) => {
     postgres: {
       connection: {
         connectionString: env('DATABASE_URL'),
-        host: env('DATABASE_HOST', 'localhost'),
-        port: env.int('DATABASE_PORT', 5432),
-        database: env('DATABASE_NAME', 'strapi'),
-        user: env('DATABASE_USERNAME', 'strapi'),
-        password: env('DATABASE_PASSWORD', 'strapi'),
-        ssl: env.bool('DATABASE_SSL', false) && {
-          key: env('DATABASE_SSL_KEY', undefined),
-          cert: env('DATABASE_SSL_CERT', undefined),
-          ca: env('DATABASE_SSL_CA', undefined),
-          capath: env('DATABASE_SSL_CAPATH', undefined),
-          cipher: env('DATABASE_SSL_CIPHER', undefined),
+        host: env('DATABASE_HOST', defaultConfig.DATABASE_HOST),
+        port: env.int('DATABASE_PORT', defaultConfig.DATABASE_PORT),
+        database: env('DATABASE_NAME', defaultConfig.DATABASE_NAME),
+        user: env('DATABASE_USERNAME', defaultConfig.DATABASE_USERNAME),
+        password: env('DATABASE_PASSWORD', defaultConfig.DATABASE_PASSWORD),
+        ssl: env.bool('DATABASE_SSL', defaultConfig.DATABASE_SSL) && {
+          key: env('DATABASE_SSL_KEY'),
+          cert: env('DATABASE_SSL_CERT'),
+          ca: env('DATABASE_SSL_CA'),
+          capath: env('DATABASE_SSL_CAPATH'),
+          cipher: env('DATABASE_SSL_CIPHER'),
           rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
         },
         schema: env('DATABASE_SCHEMA', 'public'),
@@ -44,16 +56,23 @@ export default ({ env }) => {
     },
     sqlite: {
       connection: {
-        filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),
+        filename: path.join(
+          __dirname,
+          '..',
+          '..',
+          env('DATABASE_FILENAME', '.tmp/data.db')
+        ),
       },
       useNullAsDefault: true,
     },
   };
 
+  const connectionConfig = connections[client] || connections[defaultConfig.DATABASE_CLIENT];
+
   return {
     connection: {
       client,
-      ...connections[client],
+      ...connectionConfig,
       acquireConnectionTimeout: env.int('DATABASE_CONNECTION_TIMEOUT', 60000),
     },
   };
