@@ -4,6 +4,11 @@ export default ({ env }) => ({
     sessions: {
       secure: true,
     },
+    cookie: {
+      sameSite: 'lax',
+      path: '/admin',
+      domain: env('ADMIN_DOMAIN'),
+    },
   },
   apiToken: {
     salt: env('API_TOKEN_SALT'),
