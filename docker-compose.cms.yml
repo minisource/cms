@@ -14,9 +14,10 @@ services:
       DATABASE_PASSWORD: strapi
     ports:
       - "${STRAPI_PORT}:1337"
+    env_file:
+      - ./.env
     volumes:
-      - /root/cms/package.json:/app/package.json
-    working_dir: /app
+      - ./public/uploads:/opt/app/public/uploads
     command: npm run start
     depends_on:
       - db
