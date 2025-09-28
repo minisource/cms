@@ -7,7 +7,7 @@ on:
       - master
     paths:
       - "blog/**"
-      - ".github/workflows/blog-deploy-production.yml"
+      - ".github/workflows/blog-production.yml"
       - "docker-compose.blog.yml"
 jobs:
   blog-production:
