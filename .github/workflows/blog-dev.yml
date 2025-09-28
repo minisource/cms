@@ -2,7 +2,6 @@ name: Deploy Dev Blog
 
 on:
   workflow_run:
-    workflows: ["Deploy CMS"]
     types:
       - completed
   push:
