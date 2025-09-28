@@ -1,9 +1,6 @@
 name: Deploy Production Blog
 
 on:
-  workflow_run:
-    types:
-      - completed
   push:
     branches:
       - main
