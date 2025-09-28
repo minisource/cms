@@ -8,9 +8,9 @@ on:
     branches:
       - dev
     paths:
-      - 'blog/**'
-      - '.github/workflows/blog-deploy-dev.yml'
-      - 'docker-compose.blog.yml'
+      - "blog/**"
+      - ".github/workflows/blog-deploy-dev.yml"
+      - "docker-compose.blog.yml"
 jobs:
   blog-dev:
     runs-on: ubuntu-latest

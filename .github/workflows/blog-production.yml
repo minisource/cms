@@ -9,9 +9,9 @@ on:
       - main
       - master
     paths:
-      - 'blog/**'
-      - '.github/workflows/blog-deploy-production.yml'
-      - 'docker-compose.blog.yml'
+      - "blog/**"
+      - ".github/workflows/blog-deploy-production.yml"
+      - "docker-compose.blog.yml"
 jobs:
   blog-production:
     runs-on: ubuntu-latest
