@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import Api from "../base";
-import { TArticle } from "../../schema/article/article.type";
+import { TArticle } from "../../types/strapi-types";
 
 export default class ArticleApis extends Api {
   constructor(BASE_URL: string, axios: AxiosInstance) {
