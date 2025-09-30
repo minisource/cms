@@ -19,11 +19,11 @@
     "recoil": "^0.7.7"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.13",
-    "@types/node": "20.19.17",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "20.19.18",
     "@types/react": "19.1.15",
     "@types/react-dom": "^19.1.9",
-    "tailwindcss": "^4.1.13",
+    "tailwindcss": "^4",
     "typescript": "5.9.2"
   }
 }
