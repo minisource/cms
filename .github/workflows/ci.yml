@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  blog:
+    uses: minisource/.github/.github/workflows/build-and-push.yml@main
+    with:
+      image-name: minisource/cms-blog
+      dockerfile-path: ./blog/Dockerfile
+      build-context: ./blog
+    secrets: inherit
+
+  cms:
+    uses: minisource/.github/.github/workflows/build-and-push.yml@main
+    with:
+      image-name: minisource/cms
+      dockerfile-path: ./cms/Dockerfile
+      build-context: ./cms
+    secrets: inherit
