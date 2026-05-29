@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Minisource Blog
+
+A modern blog application built with Next.js 15, TypeScript, and Tailwind CSS, powered by Strapi CMS.
+
+## Features
+
+- 🎨 Modern and responsive design with Tailwind CSS
+- 🌙 Dark mode support
+- 📝 Blog articles with rich content
+- 🔍 Category and author filtering
+- 🎯 SEO optimized
+- 🚀 Fast page loads with Next.js 15
+- 📱 Mobile-friendly
+- 🔗 Integration with Strapi CMS
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20 or higher
+- npm or yarn
+- Strapi CMS running (see `../cms` directory)
+
+### Installation
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy the environment file:
+
+```bash
+cp .env.example .env.development.local
+```
+
+3. Update the environment variables in `.env.development.local`:
+
+```env
+NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - Start development server
+- `npm run dev:turbo` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run format` - Format code with Prettier
+- `npm run type-check` - Check TypeScript types
+- `npm run test` - Run tests
+
+## Project Structure
+
+```
+blog/
+├── src/
+│   ├── app/              # Next.js app directory
+│   │   ├── (main)/       # Main layout routes
+│   │   │   ├── articles/ # Article pages
+│   │   │   ├── authors/  # Author pages
+│   │   │   └── categories/ # Category pages
+│   │   ├── layout.tsx    # Root layout
+│   │   └── page.tsx      # Home page
+│   ├── api/              # API services
+│   │   └── strapi/       # Strapi API client
+│   ├── components/       # React components
+│   │   ├── blog/         # Blog-specific components
+│   │   ├── layout/       # Layout components
+│   │   └── ui/           # UI components
+│   ├── lib/              # Utility functions
+│   ├── hooks/            # Custom hooks
+│   ├── types/            # TypeScript types
+│   └── styles/           # Global styles
+├── public/               # Static files
+└── ...config files
+```
+
+## Strapi Integration
+
+This blog connects to the Strapi CMS to fetch content. Make sure the Strapi CMS is running and accessible at the URL specified in `NEXT_PUBLIC_STRAPI_URL`.
+
+### Required Strapi Content Types
+
+- Article
+- Author
+- Category
+- Global (site settings)
+
+## Docker
+
+Build and run with Docker:
+
+```bash
+# Development
+docker-compose -f docker-compose.dev.yml up
+
+# Production
+docker-compose up -d
+```
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Strapi Documentation](https://docs.strapi.io/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
