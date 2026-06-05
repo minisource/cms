@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # STRAPI
   strapi:
-    image: CMS_IMAGE_FULL
+    image: minisource/cms:${TAG:-latest}
     restart: unless-stopped
     environment:
       DATABASE_CLIENT: postgres

@@ -203,15 +203,32 @@ npm start
 
 ## Docker
 
-### Build Images
+Images are published to [Docker Hub](https://hub.docker.com/orgs/minisource/repositories) on every successful build to `main`.
+
+| Image | Tags |
+|-------|------|
+| `minisource/cms` | `latest`, commit SHA |
+| `minisource/cms-blog` | `latest`, commit SHA |
+
+### Production deployment
 
 ```bash
-# Strapi
-docker build -t minisource/cms:latest ./cms
-
-# Blog
-docker build -t minisource/blog:latest ./blog
+export TAG=latest
+docker compose -f docker-compose.cms.yml up -d
+docker compose -f docker-compose.blog.yml up -d
 ```
+
+### Local build
+
+```bash
+docker build -t minisource/cms:latest ./cms
+docker build -t minisource/cms-blog:latest ./blog
+```
+
+### GitHub Actions secrets
+
+- `DOCKERHUB_USERNAME` — Docker Hub username
+- `DOCKERHUB_TOKEN` — Docker Hub access token
 
 ## Features
 
